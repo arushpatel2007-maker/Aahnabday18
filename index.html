@@ -3,79 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For My Queen Aahna</title>
+    
+    <title>Happy 18th Birthday Aahna ❤️</title>
+    <meta property="og:title" content="Happy 18th Birthday Aahna ❤️">
+    <meta property="og:description" content="A special surprise from Aaru 🐥">
+    <meta property="og:image" content="aahna1.jpg">
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         :root { --pink: #ff85a1; --dark-pink: #ff477e; --bg: #fff0f3; }
-        body, html { margin: 0; padding: 0; background: var(--bg); font-family: sans-serif; overflow-x: hidden; }
-        .section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 10px; }
+        body, html { margin: 0; padding: 0; background: var(--bg); font-family: 'Poppins', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
         
-        /* Gift Section */
-        .gift-box { width: 140px; height: 140px; background: var(--dark-pink); position: relative; margin-top: 50px; border-radius: 10px; }
-        .lid { width: 160px; height: 40px; background: var(--pink); position: absolute; top: -10px; left: -10px; transition: 1s; border-radius: 5px; }
+        /* Floating Hearts Layer */
+        .heart-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+        @keyframes floatUp { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 50% { opacity: 0.6; } 100% { transform: translateY(-10vh) scale(1.2); opacity: 0; } }
+        .floating-heart { position: absolute; color: var(--pink); animation: floatUp 6s linear infinite; }
 
-        /* Cake Section */
+        .section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 15px; }
+        
+        /* Gift Box */
+        .gift-box { width: 140px; height: 140px; background: var(--dark-pink); position: relative; margin-top: 60px; border-radius: 15px; box-shadow: 0 15px 40px rgba(255, 71, 126, 0.4); cursor: pointer; }
+        .lid { width: 160px; height: 40px; background: var(--pink); position: absolute; top: -10px; left: -10px; transition: 1s cubic-bezier(0.68, -0.55, 0.27, 1.55); border-radius: 8px; }
+
+        /* Cake Cutting Physics */
         #cake-section { display: none; }
-        .cake { width: 180px; height: 120px; background: #ffe5ec; margin: 20px auto; position: relative; border-bottom: 5px solid #f08080; border-radius: 10px; }
-        .candle { width: 10px; height: 40px; background: #fff; position: absolute; top: -40px; left: 85px; border-top: 5px solid var(--dark-pink); }
+        .cake-container { position: relative; width: 220px; height: 150px; cursor: pointer; margin-top: 30px; perspective: 1000px; }
+        .cake-half { width: 110px; height: 110px; background: #ffe5ec; position: absolute; bottom: 0; transition: 1.5s ease; border-bottom: 6px solid #f08080; }
+        .cake-left { left: 0; border-radius: 15px 0 0 15px; }
+        .cake-right { left: 110px; border-radius: 0 15px 15px 0; }
+        .candle { width: 12px; height: 50px; background: #fff; position: absolute; top: -50px; left: 104px; border-top: 6px solid var(--dark-pink); transition: 1s; }
+        .flame { width: 16px; height: 26px; background: #ffb703; border-radius: 50% 50% 20% 20%; position: absolute; top: -26px; left: -2px; box-shadow: 0 0 15px #ffb703; animation: flicker 0.1s infinite; }
 
-        /* THE GOD-LEVEL PHOTO FIX */
-        .glass-card { background: #fff; border-radius: 25px; padding: 15px; width: 92%; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .photo-container { 
-            width: 100%; 
-            height: 70vh; /* Takes up 70% of the screen height */
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            overflow: hidden; 
-            position: relative; 
-            background: #fff;
-        }
-        .slide { 
-            max-width: 100%; 
-            max-height: 100%; 
-            object-fit: contain !important; /* Forces the whole photo to show */
-            position: absolute; 
-            opacity: 0; 
-            transition: 1.2s ease-in-out; 
+        /* Centered Photo Frame - No Half Photos! */
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 30px; padding: 20px; width: 94%; max-width: 500px; margin-top: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .photo-container { width: 100%; height: 60vh; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; border-radius: 20px; background: #fff; }
+        .slide { max-width: 100%; max-height: 100%; object-fit: contain !important; position: absolute; opacity: 0; transition: 1.5s ease-in-out; }
+
+        /* BROAD & BOLD TYPING MESSAGE */
+        .typing-box { 
+            text-align: left; 
+            font-size: 1.4rem; /* Broader font size */
+            font-weight: 500; 
+            line-height: 1.7; 
+            color: #222; 
+            margin-top: 30px; 
+            padding: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
         }
 
-        .typing-box { text-align: left; font-size: 1.05rem; line-height: 1.6; color: #333; margin-top: 15px; padding: 10px; }
-        .btn { background: var(--dark-pink); color: white; border: none; padding: 15px 35px; border-radius: 30px; margin-top: 15px; font-weight: bold; }
+        .btn { background: var(--dark-pink); color: white; border: none; padding: 18px 45px; border-radius: 50px; margin-top: 25px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 10px 20px rgba(255, 71, 126, 0.3); }
+        @keyframes flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
     </style>
 </head>
 <body>
+    <div class="heart-bg" id="heartBg"></div>
     <audio id="bdayMusic" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
     <div class="section" id="gift-page">
-        <h1 style="color: var(--dark-pink);">For Aahna...</h1>
+        <h1 style="color: var(--dark-pink); font-family: cursive; font-size: 2.8rem;">For Aahna...</h1>
         <div class="gift-box" onclick="openBox()"><div class="lid" id="boxLid"></div></div>
+        <p style="margin-top: 30px; color: #aaa; letter-spacing: 2px;">TAP TO UNWRAP</p>
     </div>
 
     <div class="section" id="cake-section">
-        <h2 style="color: var(--dark-pink);">Make a wish!</h2>
-        <div class="cake" onclick="cutCake()"><div class="candle" id="candle"></div></div>
+        <h2 style="color: var(--dark-pink); font-family: cursive;">Make a wish, Aahna!</h2>
+        <div class="cake-container" onclick="cutCake()">
+            <div class="candle" id="candle"><div class="flame" id="flame"></div></div>
+            <div class="cake-half cake-left" id="leftCake"></div>
+            <div class="cake-half cake-right" id="rightCake"></div>
+        </div>
         <div id="message-area" style="display:none;" class="glass-card">
-            <h1 style="font-size: 3rem; color: var(--dark-pink);">18 🔥</h1>
-            <button class="btn" onclick="startMemories()">See Our Memories</button>
+            <h1 style="font-size: 4rem; color: var(--dark-pink); margin: 0;">18 🔥</h1>
+            <button class="btn" onclick="startMemories()">View Our Memories</button>
         </div>
     </div>
 
     <div class="section" id="slideshow-section" style="display:none;">
         <div class="glass-card">
             <div class="photo-container">
-                <img src="aahna1.jpg" class="slide">
-                <img src="aahna2.jpg" class="slide">
-                <img src="aahna3.jpg" class="slide">
-                <img src="aahna4.jpg" class="slide">
-                <img src="aahna5.jpg" class="slide">
-                <img src="aahna6.jpg" class="slide">
-                <img src="aahna7.jpg" class="slide">
-                <img src="aahna8.jpg" class="slide">
-                <img src="aahna9.jpg" class="slide">
-                <img src="aahna10.jpg" class="slide">
-                <img src="aahna11.jpg" class="slide">
-                <img src="aahna12.jpg" class="slide">
+                <img src="aahna1.jpg" class="slide"><img src="aahna2.jpg" class="slide">
+                <img src="aahna3.jpg" class="slide"><img src="aahna4.jpg" class="slide">
+                <img src="aahna5.jpg" class="slide"><img src="aahna6.jpg" class="slide">
+                <img src="aahna7.jpg" class="slide"><img src="aahna8.jpg" class="slide">
+                <img src="aahna9.jpg" class="slide"><img src="aahna10.jpg" class="slide">
+                <img src="aahna11.jpg" class="slide"><img src="aahna12.jpg" class="slide">
             </div>
             <div class="typing-box"><span id="typed-text"></span></div>
         </div>
@@ -84,16 +98,33 @@
     <script>
         const message = "To my sweetheart happy birthday meri betu 🫂 my sweetheart turned 18 yayyyyy aul ab toh legal age to marry is 18 toh 🫣🫣\n\nHappiest birthday to you shona and keep shining ese hi bhagwanji apki health ko hmesha thik rkhe aur ap hmesha khush rho\n\nMuaahhhhhhh 😘\n\nI love you aanu ✨️❤️\n\nWarmest wishes for your birthday 🎂 🥳\n\nFrom aaru 🐥";
 
+        // Floating Hearts Animation
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.getElementById('heartBg').appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHeart, 400);
+
         function openBox() {
             document.getElementById('bdayMusic').play().catch(() => {});
-            document.getElementById('boxLid').style.transform = 'translateY(-150px) opacity(0)';
+            document.getElementById('boxLid').style.transform = 'translateY(-200px) rotate(-30deg) scale(0)';
             setTimeout(() => { document.getElementById('gift-page').style.display = 'none'; document.getElementById('cake-section').style.display = 'flex'; }, 800);
         }
 
         function cutCake() {
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.3 } });
-            document.getElementById('candle').style.display = 'none';
-            setTimeout(() => { document.getElementById('message-area').style.display = 'block'; }, 500);
+            document.getElementById('flame').style.display = 'none';
+            confetti({ particleCount: 200, spread: 90, origin: { y: 0.4 } });
+            document.getElementById('leftCake').style.transform = 'translateX(-100px) rotate(-20deg) translateY(30px)';
+            document.getElementById('rightCake').style.transform = 'translateX(100px) rotate(20deg) translateY(30px)';
+            document.getElementById('candle').style.transform = 'rotate(110deg) translateY(100px)';
+            document.getElementById('candle').style.opacity = '0';
+            setTimeout(() => { document.getElementById('message-area').style.display = 'block'; }, 1000);
         }
 
         let slideIdx = 0;
@@ -101,7 +132,7 @@
             document.getElementById('slideshow-section').style.display = 'flex';
             runSlides();
             window.scrollTo({ top: document.getElementById('slideshow-section').offsetTop, behavior: 'smooth' });
-            setTimeout(typeWriter, 1000);
+            setTimeout(typeWriter, 1200);
         }
 
         function runSlides() {
@@ -110,7 +141,7 @@
             slideIdx++;
             if (slideIdx > slides.length) { slideIdx = 1; }
             slides[slideIdx-1].style.opacity = "1";
-            setTimeout(runSlides, 4000);
+            setTimeout(runSlides, 4500);
         }
 
         let charIdx = 0;
@@ -119,7 +150,7 @@
                 let char = message.charAt(charIdx);
                 document.getElementById('typed-text').innerHTML += char === "\n" ? "<br>" : char;
                 charIdx++;
-                setTimeout(typeWriter, 50);
+                setTimeout(typeWriter, 55);
             }
         }
     </script>
