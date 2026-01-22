@@ -3,84 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy 18th Aahna</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:italic,wght@900&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <title>For My Queen Aahna</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         :root { --pink: #ff85a1; --dark-pink: #ff477e; --bg: #fff0f3; }
-        body, html { margin: 0; padding: 0; background: var(--bg); font-family: 'Poppins', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        body, html { margin: 0; padding: 0; background: var(--bg); font-family: sans-serif; overflow-x: hidden; }
+        .section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 10px; }
         
-        .section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 20px; }
-        
-        /* Gift Box */
-        .gift-container { margin-top: 50px; perspective: 1000px; cursor: pointer; }
-        .gift-box { width: 140px; height: 140px; background: var(--dark-pink); position: relative; border-radius: 12px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        .lid { width: 160px; height: 40px; background: var(--pink); position: absolute; top: -10px; left: -10px; z-index: 10; border-radius: 8px; transition: 1s ease; }
+        /* Gift Section */
+        .gift-box { width: 140px; height: 140px; background: var(--dark-pink); position: relative; margin-top: 50px; border-radius: 10px; }
+        .lid { width: 160px; height: 40px; background: var(--pink); position: absolute; top: -10px; left: -10px; transition: 1s; border-radius: 5px; }
 
         /* Cake Section */
-        #cake-section { display: none; padding-top: 5vh; }
-        .cake-wrapper { position: relative; width: 200px; height: 160px; cursor: pointer; }
-        .cake-side { width: 100px; height: 100px; background: #ffe5ec; position: absolute; bottom: 0; transition: 1.2s ease; border-bottom: 6px solid #f08080; }
-        .cake-left { left: 0; border-radius: 15px 0 0 15px; }
-        .cake-right { left: 100px; border-radius: 0 15px 15px 0; }
-        .candle { width: 10px; height: 40px; background: linear-gradient(to bottom, var(--dark-pink), #fff); position: absolute; top: -40px; left: 95px; }
-        .flame { width: 16px; height: 24px; background: #ffb703; border-radius: 50% 50% 20% 20%; position: absolute; top: -24px; left: -3px; box-shadow: 0 0 15px #ffb703; }
+        #cake-section { display: none; }
+        .cake { width: 180px; height: 120px; background: #ffe5ec; margin: 20px auto; position: relative; border-bottom: 5px solid #f08080; border-radius: 10px; }
+        .candle { width: 10px; height: 40px; background: #fff; position: absolute; top: -40px; left: 85px; border-top: 5px solid var(--dark-pink); }
 
-        /* THE PHOTO FIX */
-        .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px); border-radius: 30px; padding: 25px; width: 90%; max-width: 450px; margin-top: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .photo-frame { 
+        /* THE GOD-LEVEL PHOTO FIX */
+        .glass-card { background: #fff; border-radius: 25px; padding: 15px; width: 92%; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .photo-container { 
             width: 100%; 
-            height: 500px; /* Fixed height for mobile focus */
-            border-radius: 20px; 
+            height: 70vh; /* Takes up 70% of the screen height */
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
             overflow: hidden; 
             position: relative; 
-            background: #fff; /* White background to keep it aesthetic */
+            background: #fff;
         }
         .slide { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: contain; /* THIS ENSURES THE ENTIRE PHOTO IS VISIBLE */
+            max-width: 100%; 
+            max-height: 100%; 
+            object-fit: contain !important; /* Forces the whole photo to show */
             position: absolute; 
             opacity: 0; 
-            transition: 1.5s ease-in-out; 
+            transition: 1.2s ease-in-out; 
         }
 
-        .shimmer-text { background: linear-gradient(90deg, var(--dark-pink), #fff, var(--dark-pink)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 3s linear infinite; font-weight: 900; }
-        .typing-box { text-align: left; font-size: 1.1rem; line-height: 1.8; color: #444; margin-top: 20px; min-height: 150px; font-weight: 400; }
-        .btn { background: var(--dark-pink); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-weight: 600; cursor: pointer; margin-top: 15px; }
-        
-        @keyframes shimmer { from { background-position: -200%; } to { background-position: 200%; } }
+        .typing-box { text-align: left; font-size: 1.05rem; line-height: 1.6; color: #333; margin-top: 15px; padding: 10px; }
+        .btn { background: var(--dark-pink); color: white; border: none; padding: 15px 35px; border-radius: 30px; margin-top: 15px; font-weight: bold; }
     </style>
 </head>
 <body>
-
     <audio id="bdayMusic" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
     <div class="section" id="gift-page">
-        <h1 class="shimmer-text" style="font-family: 'Dancing Script'; font-size: 3rem;">For My Dearest Aahna...</h1>
-        <div class="gift-container" onclick="openBox()">
-            <div class="lid" id="boxLid"></div>
-            <div class="gift-box"></div>
-        </div>
-        <p style="margin-top: 30px; color: #999;">Tap to open heart</p>
+        <h1 style="color: var(--dark-pink);">For Aahna...</h1>
+        <div class="gift-box" onclick="openBox()"><div class="lid" id="boxLid"></div></div>
     </div>
 
     <div class="section" id="cake-section">
-        <h2 id="cake-msg" style="font-family: 'Dancing Script'; font-size: 2.5rem; color: var(--dark-pink);">Make a wish!</h2>
-        <div class="cake-wrapper" onclick="cutCake()">
-            <div class="candle" id="candle"><div class="flame"></div></div>
-            <div class="cake-side cake-left" id="leftCake"></div>
-            <div class="cake-side cake-right" id="rightCake"></div>
-        </div>
+        <h2 style="color: var(--dark-pink);">Make a wish!</h2>
+        <div class="cake" onclick="cutCake()"><div class="candle" id="candle"></div></div>
         <div id="message-area" style="display:none;" class="glass-card">
-            <h1 class="shimmer-text" style="font-size: 3.5rem;">18 🔥</h1>
-            <button class="btn" onclick="startMemories()">View Our Memories</button>
+            <h1 style="font-size: 3rem; color: var(--dark-pink);">18 🔥</h1>
+            <button class="btn" onclick="startMemories()">See Our Memories</button>
         </div>
     </div>
 
     <div class="section" id="slideshow-section" style="display:none;">
         <div class="glass-card">
-            <div class="photo-frame">
+            <div class="photo-container">
                 <img src="aahna1.jpg" class="slide">
                 <img src="aahna2.jpg" class="slide">
                 <img src="aahna3.jpg" class="slide">
@@ -103,20 +86,14 @@
 
         function openBox() {
             document.getElementById('bdayMusic').play().catch(() => {});
-            document.getElementById('boxLid').style.transform = 'translateY(-200px) rotate(20deg) scale(0)';
-            setTimeout(() => {
-                document.getElementById('gift-page').style.display = 'none';
-                document.getElementById('cake-section').style.display = 'flex';
-            }, 800);
+            document.getElementById('boxLid').style.transform = 'translateY(-150px) opacity(0)';
+            setTimeout(() => { document.getElementById('gift-page').style.display = 'none'; document.getElementById('cake-section').style.display = 'flex'; }, 800);
         }
 
         function cutCake() {
-            document.querySelector('.flame').style.display = 'none';
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.3 } });
-            document.getElementById('leftCake').style.transform = 'translateX(-70px) rotate(-15deg)';
-            document.getElementById('rightCake').style.transform = 'translateX(70px) rotate(15deg)';
-            document.getElementById('candle').style.opacity = '0';
-            setTimeout(() => { document.getElementById('message-area').style.display = 'block'; }, 800);
+            document.getElementById('candle').style.display = 'none';
+            setTimeout(() => { document.getElementById('message-area').style.display = 'block'; }, 500);
         }
 
         let slideIdx = 0;
@@ -124,7 +101,7 @@
             document.getElementById('slideshow-section').style.display = 'flex';
             runSlides();
             window.scrollTo({ top: document.getElementById('slideshow-section').offsetTop, behavior: 'smooth' });
-            setTimeout(typeWriter, 1500);
+            setTimeout(typeWriter, 1000);
         }
 
         function runSlides() {
@@ -142,10 +119,9 @@
                 let char = message.charAt(charIdx);
                 document.getElementById('typed-text').innerHTML += char === "\n" ? "<br>" : char;
                 charIdx++;
-                setTimeout(typeWriter, 55);
+                setTimeout(typeWriter, 50);
             }
         }
     </script>
 </body>
 </html>
-
